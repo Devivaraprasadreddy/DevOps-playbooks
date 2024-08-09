@@ -1,0 +1,61 @@
+#Ansible variable playbook
+
+/etc/ansible/hosts
+server1
+server2 http_port=8080 pkg=httpd
+server3
+
+---
+ - name: Verifying host variable
+   hosts: server2
+   tasks:
+   - name: Testing first variable (http_port)
+     debug:
+       msg: "The HTTP PORT is {{ http_port }}"
+   - name: Testing second variable (pkg)
+     debug:
+       msg: "The package name is {{ pkg }}"
+        
+        
+
+---
+ - hosts: server2
+   vars:
+     port_no: 80
+     pkg_name: httpd
+
+
+   gather_facts: no
+   tasks:
+   - debug:
+       msg:
+        - "The value of port is {{ port_no }}"
+        - "The value of pkg is {{ pkg_name }}"
+        - "The value of hostname is {{ inventory_hostname }}"
+        - "Ansible version is {{ ansible_version }}"
+        
+        
+
+
+# ansible vars file
+
+---
+- hosts: all
+
+  vars_files:
+    - vars/test.yml
+
+  tasks:
+    - name: copy file
+      synchronize:
+        src: "{{ source_folder }}/a.txt"
+        dest: "{{ dest_folder }}"
+
+
+
+test.yml
+---
+
+source_folder: "test"
+dest_folder: "/home/etools"
+

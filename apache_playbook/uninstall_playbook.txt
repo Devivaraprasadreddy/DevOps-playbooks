@@ -1,0 +1,17 @@
+# removing apache on ubuntu using playbook
+
+---
+- hosts: cloud
+  tasks:
+    - name: stop the Apache web server
+      service:
+        name: apache2
+        state: stopped
+    - name: Uninstall the Apache web server
+      apt:
+        name: apache2
+        state: absent
+    - name: Copy the index.html file to the web root
+      file:
+        path: /var/www/html/index.html
+        state: absent

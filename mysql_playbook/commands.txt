@@ -1,0 +1,10 @@
+create a file
+mkdir <file_name>
+
+go to that folder
+cd <file_name>
+
+vi hosts
+vi playbook.yml
+
+ansible-playbook -i <file_name>/hosts --private-key /root/.ssh/<private_key> -u ubuntu <file_name>/playbook.yml
